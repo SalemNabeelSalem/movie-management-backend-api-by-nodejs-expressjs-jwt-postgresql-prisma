@@ -1,0 +1,26 @@
+-> npm init
+-> npm install express
+-> npm install nodemon --save-dev
+-> npm install dotenv
+-> npm install prisma --save-dev
+-> npm install @prisma/client
+
+# PRISMA COMMANDS
+-> npx prisma init
+# Initializes Prisma in your project, creating a new prisma directory with a schema.prisma file and .env file.
+
+-> npx prisma migrate dev --name add_users_table
+# Creates a new migration with the specified name (e.g., add_users_table) and applies it to the database,
+# This command will also update the Prisma Client to reflect the changes in the schema.
+
+-> npx prisma generate
+# Generates the Prisma Client based on the current schema. This command is typically run automatically after a migration,
+# but you can run it manually if you make changes to the schema without running a migration.
+
+-> npx prisma migrate dev --name add_movies_and_watchlists_tables
+# Creates a new migration with the specified name (e.g., add_movies_and_watchlists_tables) and applies it to the database,
+# This command will also update the Prisma Client to reflect the changes in the schema.
+
+-> npx prisma generate
+# Generates the Prisma Client based on the current schema. This command is typically run automatically after a migration,
+# but you can run it manually if you make changes to the schema without running a migration.

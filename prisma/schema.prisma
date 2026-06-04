@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+
+  // Relations
+  movies     Movie[] @relation("UserMovies")
+  watchLists WatchList[] @relation("UserWatchLists")
+}
+
+model Movie {
+  id          String   @id @default(uuid())
+  title       String
+  overview    String? // Optional field for a brief summary of the movie.
+  releaseYear Int
+  genres      String[] @default([]) // Array of genres associated with the movie.
+  runTime     Int? // Optional field for the duration of the movie in minutes.
+  posterUrl   String? // Optional field for the URL of the movie poster.
+
+  createdBy   String // ID of the user who created the movie entry.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("movies")
+
+  // Relations
+  creator User @relation("UserMovies", fields: [createdBy], references: [id], onDelete: Cascade)
+  watchLists WatchList[] @relation("MovieWatchLists")
+}
+
+model WatchList {
+  id        String   @id @default(uuid())
+  userId    String
+  movieId   String
+  status    WatchListStatus @default(PLANNED) // Enum to track the status of the movie in the watchlist.
+  rating    Int? // Optional field for the user's rating of the movie (e.g., 1-10).
+  notes     String? // Optional field for any notes the user wants to add about the movie.
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("watchlists")
+
+  // Relations
+  user  User  @relation("UserWatchLists", fields: [userId], references: [id], onDelete: Cascade)
+  movie Movie @relation("MovieWatchLists", fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId]) // Ensure a user can only have one entry per movie in their watchlist.
+}
+
+enum WatchListStatus {
+  PLANNED
+  WATCHING
+  COMPLETED
+  DROPPED
+}

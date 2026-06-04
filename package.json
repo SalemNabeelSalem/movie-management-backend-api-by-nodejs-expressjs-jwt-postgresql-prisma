@@ -1,0 +1,32 @@
+{
+  "name": "movie-management-backend-api-by-nodejs-expressjs-jwt-postgresql-prisma",
+  "version": "1.0.0",
+  "description": "A RESTful Movie Management API built with Node.js, Express.js, JWT authentication, PostgreSQL, and Prisma ORM.",
+  "keywords": [
+    "movie-management-api",
+    "nodejs",
+    "expressjs",
+    "jwt",
+    "postgresql",
+    "prisma"
+  ],
+  "license": "ISC",
+  "author": "Salem Nabeel Salem",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.8.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "nodemon": "^3.1.14",
+    "prisma": "^7.8.0",
+    "tsx": "^4.22.4"
+  }
+}
