@@ -17,8 +17,7 @@ const pool = new Pool({
 const adapter = new PrismaPg(pool);
 
 const prisma = new PrismaClient({
-  adapter,
-  log: process.env.ENVIRONMENT === 'development' ? ['query', 'error', 'warn'] : ['error'],
+  adapter, log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
 });
 
 const connectDataBase = async () => {

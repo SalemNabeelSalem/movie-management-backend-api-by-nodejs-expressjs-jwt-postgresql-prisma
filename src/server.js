@@ -1,10 +1,9 @@
 import {config} from 'dotenv';
 import express from 'express';
 
-import {connectDataBase, disconnectDataBase} from './configs/database.js';
-
 import authRoutes from './routes/auth.routes.js';
 import movieRoutes from './routes/movie.routes.js';
+import {connectDataBase, disconnectDataBase} from './configs/database.js';
 
 config();
 

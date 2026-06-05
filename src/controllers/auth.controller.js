@@ -1,9 +1,15 @@
-import bcrypt from "bcryptjs";
-import {prisma} from "../configs/database.js";
-import {generateToken} from "../utils/generateToken.js";
+import bcrypt from 'bcryptjs';
+import {prisma} from '../configs/database.js';
+import {generateToken} from '../utils/generateToken.js';
 
 const register = async (req, res) => {
   const {name, email, password} = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({
+      message: 'Name, email, and password are required.'
+    });
+  }
 
   // Check if user with the same email already exists
   const existingUser = await prisma.user.findUnique({
@@ -27,7 +33,7 @@ const register = async (req, res) => {
     }
   });
 
-  const token = await generateToken(newUser);
+  const token = await generateToken(newUser.id, res);
 
   res.status(201).json({
     message: 'User registered successfully.',
@@ -45,6 +51,12 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const {email, password} = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({
+      message: 'Email and password are required.'
+    });
+  }
+
   // Check if user with the provided email exists
   const user = await prisma.user.findUnique({
     where: {email: email}
@@ -61,7 +73,7 @@ const login = async (req, res) => {
     return res.status(401).json({message: 'Invalid email or password.'}); // 401 Unauthorized
   }
 
-  const token = await generateToken(user);
+  const token = await generateToken(user.id, res);
 
   res.status(200).json({
     message: 'Login successful.',
@@ -74,7 +86,17 @@ const login = async (req, res) => {
   }); // 200 OK
 }
 
+const logout = async (req, res) => {
+  res.clearCookie('jwt', '', {
+    expires: new Date(0),
+    httpOnly: true
+  });
+
+  res.status(200).json({message: 'Logout successful.'});
+}
+
 export {
   register,
   login,
+  logout,
 };
