@@ -1,11 +1,35 @@
 -> npm init
--> npm install express
--> npm install nodemon --save-dev
--> npm install dotenv
--> npm install prisma --save-dev
--> npm install @prisma/client
+# Initializes a new Node.js project by creating a package.json file.
+# This file will contain metadata about your project and its dependencies.
 
-# PRISMA COMMANDS
+-> npm install express
+# Express is a popular web framework for Node.js that simplifies the process of building web applications and APIs.
+
+-> npm install nodemon --save-dev
+# Nodemon is a development tool that automatically restarts your Node.js application when file changes are detected.
+
+-> npm install dotenv
+# Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env.
+
+-> npm install prisma --save-dev
+# Prisma is an open-source database toolkit that simplifies database access and management.
+
+-> npm install @prisma/client
+# @prisma/client is the auto-generated query builder for your Prisma schema, used to interact with your database.
+
+-> npm install @prisma/adapter-pg
+# @prisma/adapter-pg is a Prisma adapter for PostgreSQL databases, allowing you to use Prisma with PostgreSQL.
+
+-> npm install pg
+# pg is a PostgreSQL client for Node.js, providing a way to connect and interact with PostgreSQL databases.
+
+-> npm install @types/node --save-dev
+# @types/node provides TypeScript type definitions for Node.js,
+# enabling better development experience and type checking when working with Node.js.
+
+-> npm install tsx --save-dev
+# tsx is a TypeScript execution environment that allows you to run TypeScript files directly without needing to compile them first.
+
 -> npx prisma init
 # Initializes Prisma in your project, creating a new prisma directory with a schema.prisma file and .env file.
 
@@ -24,3 +48,11 @@
 -> npx prisma generate
 # Generates the Prisma Client based on the current schema. This command is typically run automatically after a migration,
 # but you can run it manually if you make changes to the schema without running a migration.
+
+-> npm install bcryptjs
+# bcryptjs is a library for hashing passwords in Node.js. It provides a simple and secure way to hash and compare passwords,
+# making it easier to implement user authentication in your application.
+
+-> npm install jsonwebtoken
+# jsonwebtoken is a library for generating and verifying JSON Web Tokens (JWTs) in Node.js.
+# JWTs are commonly used for authentication and authorization in web applications.

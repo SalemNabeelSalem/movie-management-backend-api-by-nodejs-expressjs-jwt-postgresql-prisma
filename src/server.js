@@ -11,13 +11,13 @@ config();
 const app = express();
 const PORT = process.env.SERVER_PORT || 5001;
 
-/**
+/*
  * Middlewares
  * */
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(express.urlencoded({extended: true})); // Middleware to parse URL-encoded request bodies
 
-/**
+/*
  * Health Check Endpoint
  * */
 app.get('/api/v1/health', (req, res) => {
@@ -27,18 +27,23 @@ app.get('/api/v1/health', (req, res) => {
   });
 });
 
-/**
+/*
  * API Routes
  * */
 app.use('/api/v1/movies', movieRoutes);
 app.use('/api/v1/auth', authRoutes);
 
-/**
+/*
  * Start the Server
  * */
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+/*
+ * Database Bootstrap (Separate from Server Startup)
+ * */
+await connectDataBase();
 
 // Handle unhandled promise rejections (e.g., database connection errors)
 process.on('unhandledRejection', (err) => {
