@@ -1,5 +1,6 @@
 import {config} from 'dotenv';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 
 import authRoutes from './routes/auth.routes.js';
 import movieRoutes from './routes/movie.routes.js';
@@ -15,6 +16,7 @@ const PORT = process.env.SERVER_PORT || 5001;
  * Middlewares
  * */
 app.use(express.json()); // Middleware to parse JSON request bodies
+app.use(cookieParser()); // Middleware to parse cookies from incoming requests
 app.use(express.urlencoded({extended: true})); // Middleware to parse URL-encoded request bodies
 
 /*

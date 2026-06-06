@@ -56,3 +56,11 @@
 -> npm install jsonwebtoken
 # jsonwebtoken is a library for generating and verifying JSON Web Tokens (JWTs) in Node.js.
 # JWTs are commonly used for authentication and authorization in web applications.
+
+-> npm install @faker-js/faker --save-dev
+# @faker-js/faker is a library for generating fake data in JavaScript.
+# It can be used for testing, seeding databases, or generating sample data for development purposes.
+
+-> npm install cookie-parser
+# cookie-parser is a middleware for Express that parses cookies attached to the client request object.
+# It allows you to easily access and manipulate cookies in your Express applications.

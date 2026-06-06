@@ -1,7 +1,9 @@
 import {prisma} from '../configs/database.js';
 
 const addMovieToWatchlist = async (req, res) => {
-  const {userId, movieId, status, rating, notes} = req.body;
+  const {movieId, status, rating, notes} = req.body;
+
+  const userId = req.user.id;
 
   if (!movieId || !status || !rating || !notes) {
     return res.status(400).json({ // 400 Bad Request
@@ -55,6 +57,9 @@ const addMovieToWatchlist = async (req, res) => {
   });
 }
 
+const deleteMovieFromWatchlist = async (req, res) => {}
+
 export {
   addMovieToWatchlist,
+  deleteMovieFromWatchlist
 }
