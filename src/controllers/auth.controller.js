@@ -6,7 +6,7 @@ const register = async (req, res) => {
   const {name, email, password} = req.body;
 
   if (!name || !email || !password) {
-    return res.status(400).json({
+    return res.status(400).json({ // 400 Bad Request
       message: 'Name, email, and password are required.'
     });
   }
@@ -17,7 +17,9 @@ const register = async (req, res) => {
   });
 
   if (existingUser) {
-    return res.status(400).json({message: 'User already exists with this email.'}); // 400 Bad Request
+    return res.status(400).json({ // 400 Bad Request
+      message: 'User already exists with this email.'
+    });
   }
 
   // Hash the password before storing it on the database
@@ -35,7 +37,7 @@ const register = async (req, res) => {
 
   const token = await generateToken(newUser.id, res);
 
-  res.status(201).json({
+  res.status(201).json({ // 201 Created
     message: 'User registered successfully.',
     data: {
       user: {
@@ -45,14 +47,14 @@ const register = async (req, res) => {
       },
       token
     }
-  }); // 201 Created
+  });
 }
 
 const login = async (req, res) => {
   const {email, password} = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({
+    return res.status(400).json({ // 400 Bad Request
       message: 'Email and password are required.'
     });
   }
@@ -63,19 +65,23 @@ const login = async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json({message: 'Invalid email or password.'}); // 401 Unauthorized
+    return res.status(401).json({ // 401 Unauthorized
+      message: 'Invalid email or password.'
+    });
   }
 
   // Compare the provided password with the stored hashed password
   const isPasswordMatch = await bcrypt.compare(password, user.password);
 
   if (!isPasswordMatch) {
-    return res.status(401).json({message: 'Invalid email or password.'}); // 401 Unauthorized
+    return res.status(401).json({ // 401 Unauthorized
+      message: 'Invalid email or password.'
+    });
   }
 
   const token = await generateToken(user.id, res);
 
-  res.status(200).json({
+  res.status(200).json({ // 200 OK
     message: 'Login successful.',
     data: {
       id: user.id,
@@ -83,7 +89,7 @@ const login = async (req, res) => {
       email: user.email
     },
     token
-  }); // 200 OK
+  });
 }
 
 const logout = async (req, res) => {
@@ -92,7 +98,9 @@ const logout = async (req, res) => {
     httpOnly: true
   });
 
-  res.status(200).json({message: 'Logout successful.'});
+  res.status(200).json({ // 200 OK
+    message: 'Logout successful.'
+  });
 }
 
 export {

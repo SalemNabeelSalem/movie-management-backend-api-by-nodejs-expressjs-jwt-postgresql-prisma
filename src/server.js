@@ -3,6 +3,7 @@ import express from 'express';
 
 import authRoutes from './routes/auth.routes.js';
 import movieRoutes from './routes/movie.routes.js';
+import watchlistRoutes from "./routes/watchlist.routes.js";
 import {connectDataBase, disconnectDataBase} from './configs/database.js';
 
 config();
@@ -20,7 +21,7 @@ app.use(express.urlencoded({extended: true})); // Middleware to parse URL-encode
  * Health Check Endpoint
  * */
 app.get('/api/v1/health', (req, res) => {
-  res.status(200).json({
+  res.status(200).json({ // 200 OK
     success: true,
     message: 'Server is running successfully!'
   });
@@ -29,8 +30,9 @@ app.get('/api/v1/health', (req, res) => {
 /*
  * API Routes
  * */
-app.use('/api/v1/movies', movieRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/movies', movieRoutes);
+app.use('/api/v1/watchlist', watchlistRoutes);
 
 /*
  * Start the Server
