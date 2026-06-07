@@ -33,7 +33,6 @@ async function main() {
         name: user.name,
         email: user.email,
         password: hashedPassword, // This secure hash goes to the database
-        updatedAt: user.updatedAt,
       };
     })
   );
@@ -72,7 +71,10 @@ async function main() {
     prisma.user.createMany({data: usersToCreate}),
     prisma.movie.createMany({data: moviesToCreate}),
     prisma.watchList.createMany({data: watchlistToCreate})
-  ]);
+  ], {
+    maxWait: 15000, // Time Prisma waits to get a connection (15 seconds)
+    timeout: 30000, // Time allowed for the transaction to execute (30 seconds)
+  });
 
   // 5. Print out credentials alongside their plain passwords for debugging/testing
   console.log('\n🔐 --- GENERATED USER CREDENTIALS (USE TO LOG IN) ---');
