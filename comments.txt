@@ -64,3 +64,8 @@
 -> npm install cookie-parser
 # cookie-parser is a middleware for Express that parses cookies attached to the client request object.
 # It allows you to easily access and manipulate cookies in your Express applications.
+
+-> npm install zod
+# Zod is a TypeScript-first schema declaration and validation library.
+# It provides a way to define and validate data structures in a type-safe manner,
+# making it easier to ensure data integrity in your applications.
