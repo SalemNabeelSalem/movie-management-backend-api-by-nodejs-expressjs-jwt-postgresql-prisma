@@ -10,7 +10,7 @@ import {connectDataBase, disconnectDataBase} from './configs/database.js';
 config();
 
 const app = express();
-const PORT = process.env.SERVER_PORT || 5001;
+const PORT = process.env.SERVER_PORT || 3000;
 
 /*
  * Middlewares
@@ -39,7 +39,7 @@ app.use('/api/v1/watchlist', watchlistRoutes);
 /*
  * Start the Server
  * */
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
