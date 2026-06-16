@@ -69,3 +69,88 @@
 # Zod is a TypeScript-first schema declaration and validation library.
 # It provides a way to define and validate data structures in a type-safe manner,
 # making it easier to ensure data integrity in your applications.
+
+## VPS INSTALLATION
+-> sudo apt update && sudo apt upgrade -y
+# Updates the package lists for upgrades and new packages, and then upgrades the installed packages to their latest versions.
+
+-> sudo apt install curl
+# Installs the curl command-line tool, which is used for transferring data with URLs.
+
+-> sudo apt install git
+# Installs Git, a version control system that allows you to track changes in your code and collaborate with others.
+
+-> curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -
+# Adds the NodeSource APT repository for Node.js LTS (Long Term Support) versions and updates the package lists.
+
+-> sudo apt install nodejs
+# Installs Node.js, a JavaScript runtime built on Chrome's V8 JavaScript engine, which allows you to run JavaScript code on the server side.
+
+-> npm install -g pm2
+# Installs PM2 globally, a production process manager for Node.js applications that allows you to keep your applications running,
+# manage logs, and perform other process management tasks.
+
+-> pm2 start src/server.js --name "movie-watchlist-api"
+# Starts the server.js file using PM2 and assigns it the name "movie-watchlist-api".
+# This allows you to easily manage and monitor the application using PM2 commands.
+
+-> pm2 save
+# Saves the current PM2 process list, allowing it to be resurrected on system reboot.
+
+-> pm2 startup systemd
+# Generates and configures a startup script for PM2 to ensure that it starts on system boot, using the systemd init system.
+
+-> sudo systemctl enable pm2-root
+# Enables the PM2 service to start automatically on system boot for the root user.
+# This ensures that your PM2-managed applications will be restarted after a reboot.
+
+-> sudo systemctl start pm2-root
+# Starts the PM2 service for the root user, allowing it to manage and run your Node.js applications immediately.
+
+-> pm2 logs movie-watchlist-api
+# Displays the logs for the "movie-watchlist-api" application managed by PM2,
+# allowing you to monitor the application's output and debug any issues that may arise.
+
+-> sudo apt install nginx
+# Installs Nginx, a high-performance web server that can also be used as a reverse proxy, load balancer, and HTTP cache.
+
+-> sudo nano /etc/nginx/sites-available/movie-watchlist-api
+# Opens the Nginx configuration file for the "movie-watchlist-api" site in the nano text editor,
+# allowing you to configure the server settings for your application.
+
+server {
+    listen 80;
+    server_name your_domain_or_ip;
+
+    location / {
+        proxy_pass http://localhost:3000; # Assuming your Node.js app runs on port 3000
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+# This Nginx configuration sets up a reverse proxy for your Node.js application,
+# forwarding incoming requests to the application running on localhost:3000.
+
+-> sudo ln -s /etc/nginx/sites-available/movie-watchlist-api /etc/nginx/sites-enabled/movie-watchlist-api
+# Creates a symbolic link to enable the Nginx site configuration for "movie-watchlist-api", allowing Nginx to serve the application.
+
+-> rm /etc/nginx/sites-enabled/default
+# Removes the default Nginx site configuration to prevent conflicts with your custom configuration.
+
+-> nginx -t
+# Tests the Nginx configuration for syntax errors and other issues, ensuring that your configuration is valid before reloading the Nginx service.
+
+-> sudo systemctl restart nginx
+# Restarts the Nginx service to apply the new configuration, allowing your Node.js application to be served through Nginx.
+
+-> sudo apt install certbot python3-certbot-nginx
+# Installs Certbot and the Nginx plugin for Certbot, which are used to obtain and manage SSL/TLS certificates from Let's Encrypt for
+# securing your website with HTTPS.
+
+-> sudo certbot --nginx -d your_domain_or_ip
+# Runs Certbot with the Nginx plugin to obtain an SSL/TLS certificate for your domain or IP address,
+# and automatically configures Nginx to use the certificate for secure HTTPS connections.
+# Follow the prompts to complete the certificate issuance process.

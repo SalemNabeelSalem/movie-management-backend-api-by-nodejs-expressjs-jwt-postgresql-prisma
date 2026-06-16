@@ -38,6 +38,8 @@ app.use('/api/v1/watchlist', watchlistRoutes);
 
 /*
  * Start the Server
+ *
+ * 0.0.0.0: Listen on all network interfaces
  * */
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);

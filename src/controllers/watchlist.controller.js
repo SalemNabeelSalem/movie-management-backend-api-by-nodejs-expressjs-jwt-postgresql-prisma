@@ -59,6 +59,71 @@ const addMovieToWatchlist = async (req, res) => {
   }
 }
 
+const getAllWatchlist = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const watchlistEntries = await prisma.watchList.findMany({
+      where: {
+        userId
+      },
+      include: {
+        movie: true // Include movie details in the response
+      }
+    });
+
+    res.status(200).json({ // 200 OK
+      message: 'Watchlist entries retrieved successfully.',
+      data: {
+        watchlistEntries
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ // 500 Internal Server Error
+      message: 'An error occurred while retrieving the watchlist entries.',
+      error: error.message
+    });
+  }
+}
+
+const getWatchlistEntryById = async (req, res) => {
+  const userId = req.user.id;
+  const watchlistId = req.params.id; // Already verified as a valid UUID
+
+  try {
+    const watchlistEntry = await prisma.watchList.findUnique({
+      where: {
+        id: watchlistId
+      },
+    });
+
+    if (!watchlistEntry) {
+      return res.status(404).json({ // 404 Not Found
+        message: 'Watchlist entry not found.'
+      });
+    }
+
+    // Check if the watchlist entry belongs to the user
+    if (watchlistEntry.userId !== userId) {
+      return res.status(403).json({ // 403 Forbidden
+        message: 'You do not have permission to view this watchlist entry.'
+      });
+    }
+
+    res.status(200).json({ // 200 OK
+      message: 'Watchlist entry retrieved successfully.',
+      data: {
+        watchlistEntry
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ // 500 Internal Server Error
+      message: 'An error occurred while retrieving the watchlist entry.',
+      error: error.message
+    });
+  }
+}
+
 const updateWatchlistEntry = async (req, res) => {
   const userId = req.user.id;
   const watchlistId = req.params.id; // Already verified as a valid UUID
@@ -156,6 +221,8 @@ const deleteMovieFromWatchlist = async (req, res) => {
 
 export {
   addMovieToWatchlist,
+  getAllWatchlist,
+  getWatchlistEntryById,
   updateWatchlistEntry,
   deleteMovieFromWatchlist
 }

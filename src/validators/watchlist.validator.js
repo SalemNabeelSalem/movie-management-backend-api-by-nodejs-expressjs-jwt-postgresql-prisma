@@ -6,9 +6,9 @@ const statusValues = Object.values(WatchListStatus); // ['PLANNED', 'WATCHING', 
 
 // 2. Build the Core Master Schema representing a complete database row
 const watchlistCoreSchema = z.object({
-  id: z.uuid(),
-  userId: z.uuid(),
-  movieId: z.uuid(),
+  id: z.uuid({message: 'Invalid watchlist entry ID format'}),
+  userId: z.uuid({message: 'Invalid user ID format'}),
+  movieId: z.uuid({message: 'Invalid movie ID format'}),
   status: z.enum(statusValues).default(WatchListStatus.PLANNED),
   rating: z
     .coerce // Coerce the input to a number (handles string inputs like "8")
