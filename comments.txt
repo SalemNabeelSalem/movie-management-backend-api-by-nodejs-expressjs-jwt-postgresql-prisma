@@ -70,6 +70,14 @@
 # It provides a way to define and validate data structures in a type-safe manner,
 # making it easier to ensure data integrity in your applications.
 
+-> npm install swagger-ui-express
+# swagger-ui-express is a library that allows you to serve Swagger UI for your Express applications.
+# Swagger UI is a tool that generates interactive API documentation based on your OpenAPI specification.
+
+-> npm install swagger-jsdoc
+# swagger-jsdoc is a library that generates OpenAPI (Swagger) specifications from JSDoc comments in your code.
+# It allows you to document your API endpoints and generate Swagger documentation automatically.
+
 ## VPS INSTALLATION
 -> sudo apt update && sudo apt upgrade -y
 # Updates the package lists for upgrades and new packages, and then upgrades the installed packages to their latest versions.
