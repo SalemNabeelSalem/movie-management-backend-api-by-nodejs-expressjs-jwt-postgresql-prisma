@@ -82,7 +82,7 @@ const login = async (req, res) => {
   const token = await generateToken(user.id, res);
 
   res.status(200).json({ // 200 OK
-    message: 'Login successful.',
+    message: 'Successful login.',
     data: {
       id: user.id,
       name: user.name,
@@ -99,7 +99,7 @@ const logout = async (req, res) => {
   });
 
   res.status(200).json({ // 200 OK
-    message: 'Logout successful.'
+    message: 'Successful logout.'
   });
 }
 

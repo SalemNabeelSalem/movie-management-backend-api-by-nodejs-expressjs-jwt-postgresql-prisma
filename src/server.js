@@ -1,4 +1,5 @@
 import {config} from 'dotenv';
+import cors from 'cors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 
@@ -17,6 +18,7 @@ const PORT = process.env.SERVER_PORT || 3000;
 /*
  * Middlewares
  * */
+app.use(cors()); // Middleware to enable Cross-Origin Resource Sharing (CORS)
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(cookieParser()); // Middleware to parse cookies from incoming requests
 app.use(express.urlencoded({extended: true})); // Middleware to parse URL-encoded request bodies

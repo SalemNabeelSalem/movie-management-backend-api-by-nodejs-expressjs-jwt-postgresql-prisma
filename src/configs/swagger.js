@@ -24,6 +24,14 @@ const swaggerOptions = {
       {
         name: 'Health Check',
         description: 'Endpoints related to health check',
+      },
+      {
+        name: 'Authentication',
+        description: 'Endpoints for user authentication and account management',
+      },
+      {
+        name: 'Movies',
+        description: 'Endpoints for managing movies',
       }
     ],
     servers: [
