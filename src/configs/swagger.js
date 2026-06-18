@@ -16,7 +16,7 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Movie API',
+      title: 'Movie API Documentation',
       version: '1.0.0',
       description: 'API documentation for the Movie API',
     },
@@ -32,12 +32,16 @@ const swaggerOptions = {
       {
         name: 'Movies',
         description: 'Endpoints for managing movies',
+      },
+      {
+        name: 'Watchlist',
+        description: 'Endpoints for managing user watchlist',
       }
     ],
     servers: [
       {
         url: isProduction ? PRODUCTION_URL : LOCAL_URL,
-        description: isProduction ? 'Production server' : 'Local server',
+        description: isProduction ? 'Production Server' : 'Local Server',
       },
     ],
   },
@@ -47,7 +51,7 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
 
-export default function swaggerDocs(app, port) {
+export default function swaggerDocs(app) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // Optional JSON endpoint for Swagger specification
